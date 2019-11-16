@@ -1,0 +1,35 @@
+body{
+    background: #80D0C7 0 0 no-repeat padding-box;
+
+}
+.container{
+    top: 0px;
+left: 0px;
+width: 1920px;
+height: 144px;
+opacity: 1;
+}
+
+
+
+.logo{
+    top: 30px;
+    left: 166px;
+    width: 231px;
+    height: 84px;
+    background: transparent url('../media/img/ELMH_B.svg') 0% 0% no-repeat padding-box;
+}
+
+
+
+/*#nav{*/
+/*    top: 67px;*/
+/*left: 509px;*/
+/*width: 49px;*/
+/*height: 24px;*/
+/*text-align: left;*/
+/*font: Bold 18px/24px Nunito;*/
+/*letter-spacing: 0;*/
+/*color: #172B4D;*/
+/*opacity: 1;*/
+/*}*/
