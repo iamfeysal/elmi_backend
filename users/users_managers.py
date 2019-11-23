@@ -1,5 +1,5 @@
 from django.contrib.auth.base_user import BaseUserManager
-from   django.db import models
+from django.db import models
 
 
 class UserManager(BaseUserManager):
@@ -19,7 +19,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_normal_user(self, email, password=None, **extra_fields) :
+    def create_normal_user(self, email, password=None, **extra_fields):
         """Create standard user account without any privileges"""
         extra_fields.setdefault('is_superuser', False)
         return self._create_user(email, password, **extra_fields)
@@ -36,7 +36,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_staff(self, email, password=None, **extra_fields) :
+    def create_staff(self, email, password=None, **extra_fields):
         """Create Staff user account"""
         extra_fields.setdefault('is_staff', True)
 
