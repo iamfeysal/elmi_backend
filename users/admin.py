@@ -5,8 +5,9 @@ from django.contrib.auth import admin as auth_admin
 from django.utils.translation import gettext_lazy as _
 
 from authentications.forms import UserChangeForm, UserCreationForm
-from users.models import  User, UserFeedback
+from users.models import User, UserFeedback
 from django.contrib import admin
+from  django.contrib.auth.models import Group
 
 
 class UserFeedbackInline(admin.StackedInline):
@@ -25,18 +26,20 @@ class MyUserAdmin(auth_admin.UserAdmin):
     model = User
     list_display = ('email', 'avatar', "first_name", "last_name", "username",
                     "member_type", 'date_joined', 'is_admin', 'is_active',
-                    'is_staff','is_superuser','last_login')  #
+                    'is_staff', 'is_superuser', 'last_login')  #
     # Contain
     # only
     # fields in your
     # `custom-user-model`
-    list_filter = ('last_login', 'date_joined',)  # Contain only fields in your #
-    # `custom-user-model` intended for filtering. Do not include `groups`since you do not have it
-    # search_fields = ('is_player', 'is_player',)  # Contain only fields in your
-    # `custom-user-model` intended for searching
-    # ordering = ('is_player', 'is_coach',)  # Contain only fields in your
-    # `custom-user-model` intended to ordering
-    filter_horizontal = ()  # Leave it empty. You have neither `groups` or `user_permissions`
+    list_filter = (
+        'last_login', 'date_joined',)  # Contain only fields in your #
+    # `custom-user-model` intended for filtering. Do not include
+    # `groups`since you do not have it search_fields = ('is_player',
+    # 'is_player',)  # Contain only fields in your `custom-user-model`
+    # intended for searching ordering = ('is_player', 'is_coach',)  # Contain
+    # only fields in your `custom-user-model` intended to ordering
+    filter_horizontal = ()  # Leave it empty. You have neither `groups` or
+    # `user_permissions`
     # fieldsets = UserAdmin.fieldsets + (
     #     (None, {'fields' : ('mobile',)}),
     # )
@@ -57,7 +60,7 @@ class MyUserAdmin(auth_admin.UserAdmin):
         (None, {
             'classes': ('wide',),
             'fields': ('email', 'password1', 'password2', 'first_name',
-                       'last_name','member_type')}
+                       'last_name', 'member_type')}
          ),
     )
     inlines = [UserFeedbackInline]
@@ -105,11 +108,10 @@ class MyUserAdmin(auth_admin.UserAdmin):
 
     def activate_users(self, request, queryset):
         """
-        handy admin action to mark multiple users as active
-        Using this action, a staff user can mark one or more users,
-         and activate them all at once.
-         This is useful in all sorts of cases, such as if you had a bug in the registration process
-         and needed to activate users in bulk
+        handy admin action to mark multiple users as active Using this
+        action, a staff user can mark one or more users, and activate them
+        all at once. This is useful in all sorts of cases, such as if you had
+        a bug in the registration process and needed to activate users in bulk
         """
         assert request.user.has_perm('auth.change_user')
         cnt = queryset.filter(is_active=False).update(is_active=True)
@@ -128,8 +130,7 @@ class MyUserAdmin(auth_admin.UserAdmin):
         return actions
 
 
-
-
 # admin.site.unregister(User)
 admin.site.register(User, MyUserAdmin, )
 admin.site.register(UserFeedback)
+admin.site.unregister(Group)

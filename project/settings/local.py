@@ -1,6 +1,6 @@
-from project.settings.base import * #noqa
+from project.settings.base import *  # noqa
 
-from  decouple import config, Csv
+from decouple import config, Csv
 import dj_database_url
 
 DATABASES = {
@@ -8,7 +8,7 @@ DATABASES = {
     )
 }
 
-if config('MODE')=="dev":
+if config('MODE') == "dev":
     # DATABASES = {
     #     'default': {
     #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -19,7 +19,6 @@ if config('MODE')=="dev":
     #         'PORT': '',
     #     }
     # }
-
 
     SECRET_KEY = config('SECRET_KEY')
     DEBUG = config('DEBUG', cast=bool)
@@ -34,16 +33,7 @@ if config('MODE')=="dev":
         }
     }
 
-
-
-
-
-
-
-
-
-
-
+CORS_ORIGIN_ALLOW_ALL = True
 
 # DEBUG = config('DEBUG', default=True, cast=bool)
 # DATABASES = {
