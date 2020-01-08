@@ -34,11 +34,14 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'home.apps.HomeConfig',
     'commands.apps.CommandsConfig',
+    'customers.apps.CustomersConfig',
+    'category.apps.CategoryConfig',
     'debug_toolbar',
     'bootstrap4',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'django_extensions',
 ]
 INTERNAL_IPS = [
     # ...

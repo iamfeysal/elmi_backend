@@ -6,12 +6,30 @@ from django.utils.translation import gettext_lazy as _
 
 from authentications.forms import UserChangeForm, UserCreationForm
 from users.models import User, UserFeedback
+from category.models import Category, SubCategory
+from customers.models import FranchiseCustomer, B2bCustomer, EndCustomer
 from django.contrib import admin
-from  django.contrib.auth.models import Group
+from django.contrib.auth.models import Group
 
 
 class UserFeedbackInline(admin.StackedInline):
     model = UserFeedback
+
+
+class FranchiseInline(admin.StackedInline):
+    model = FranchiseCustomer
+
+
+class B2bInline(admin.StackedInline):
+    model = B2bCustomer
+
+
+class EndInline(admin.StackedInline):
+    model = EndCustomer
+
+
+class CategoryInline(admin.StackedInline):
+    model = Category
 
 
 class MyUserAdmin(auth_admin.UserAdmin):
@@ -25,7 +43,7 @@ class MyUserAdmin(auth_admin.UserAdmin):
     add_form = UserCreationForm
     model = User
     list_display = ('email', 'avatar', "first_name", "last_name", "username",
-                    "member_type", 'date_joined', 'is_admin', 'is_active',
+                    'date_joined', 'is_admin', 'is_active',
                     'is_staff', 'is_superuser', 'last_login')  #
     # Contain
     # only
@@ -60,10 +78,11 @@ class MyUserAdmin(auth_admin.UserAdmin):
         (None, {
             'classes': ('wide',),
             'fields': ('email', 'password1', 'password2', 'first_name',
-                       'last_name', 'member_type')}
+                       'last_name',)}
          ),
     )
-    inlines = [UserFeedbackInline]
+
+    inlines = [UserFeedbackInline, FranchiseInline,]
 
     # disable change of email if user is not superuser
     def get_form(self, request, obj=None, **kwargs):
@@ -98,7 +117,8 @@ class MyUserAdmin(auth_admin.UserAdmin):
 
     def has_delete_permission(self, request, obj=None):
         """
-        # prevent staff users from deleting a model instance, regardless of their permissions
+        # prevent staff users from deleting a model instance, regardless of
+        their permissions
         """
         return False
 
@@ -133,4 +153,9 @@ class MyUserAdmin(auth_admin.UserAdmin):
 # admin.site.unregister(User)
 admin.site.register(User, MyUserAdmin, )
 admin.site.register(UserFeedback)
+admin.site.register(FranchiseCustomer)
+admin.site.register(B2bCustomer)
+admin.site.register(EndCustomer)
+admin.site.register(Category)
 admin.site.unregister(Group)
+admin.site.register(SubCategory)

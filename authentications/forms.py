@@ -14,13 +14,12 @@ class UserCreationForm(forms.ModelForm):
                                           "for verification.")
     first_name = forms.CharField(max_length=15, label='First name')
     last_name = forms.CharField(max_length=15, label='Last name')
+
     # member_type = forms.CharField(max_length=200, label='Member Type')
-
-
 
     class Meta:
         model = User
-        fields = ('email','member_type')
+        fields = ('email',)
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
@@ -44,9 +43,9 @@ class UserCreationForm(forms.ModelForm):
 
 class UserChangeForm(forms.ModelForm):
     password = auth_forms.ReadOnlyPasswordHashField(label="Password",
-        help_text="Raw passwords are not stored, so there is no way to see "
-                  "this user's password, but you can change the password "
-                  "using <a href=\"../password/\">this form</a>.")
+                                                    help_text="Raw passwords are not stored, so there is no way to see "
+                                                              "this user's password, but you can change the password "
+                                                              "using <a href=\"../password/\">this form</a>.")
 
     class Meta:
         model = User
@@ -60,38 +59,3 @@ class UserChangeForm(forms.ModelForm):
 
     def clean_password(self):
         return self.initial["password"]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

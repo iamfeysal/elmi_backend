@@ -4,10 +4,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 import users
-from users.api.serializers import  UserFeedbackSerializer, UserSerializer
+from users.api.serializers import UserFeedbackSerializer, UserSerializer
 from users.models import User, UserFeedback
 
-# 
+
+#
 # class ListUsersView(viewsets.ModelViewSet):
 #     
 #     # print('hit list user view')
@@ -26,7 +27,7 @@ from users.models import User, UserFeedback
 #             serializer.save()
 #             return Response(serializer.data, status=status.HTTP_201_CREATED)
 #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
 
 # class UserViewSet(viewsets.ModelViewSet):
 #     """User ViewSet.
@@ -61,7 +62,7 @@ from users.models import User, UserFeedback
 #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class UserFeedbackViewSet(viewsets.ModelViewSet) :
+class UserFeedbackViewSet(viewsets.ModelViewSet):
     """
     Lists user feedbacks
     """

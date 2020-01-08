@@ -51,7 +51,7 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    member_type = models.CharField(max_length=200, choices=MEMBER_TYPE)
+    # member_type = models.CharField(max_length=200, choices=MEMBER_TYPE)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -157,3 +157,8 @@ class UserFeedback(models.Model):
     message_polarity = models.CharField(max_length=50, blank=True, null=True,
                                         choices=FEEDBACK_CHOICES,
                                         default="undefined")
+
+    def __str__(self):
+        return self.message_polarity
+
+
