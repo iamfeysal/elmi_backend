@@ -33,7 +33,6 @@ if config('MODE') == "dev":
         }
     }
 
-CORS_ORIGIN_ALLOW_ALL = True
 
 # DEBUG = config('DEBUG', default=True, cast=bool)
 # DATABASES = {

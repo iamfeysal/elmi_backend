@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -48,6 +48,11 @@ INTERNAL_IPS = [
     '127.0.0.1',
     # ...
 ]
+REST_FRAMEWORK = {
+    # "DATE_INPUT_FORMATS": ["%d-%m-%Y"],
+    'DATETIME_FORMAT': "%Y-%m-%d",
+
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -118,7 +123,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Athens'
 
 USE_I18N = True
 
@@ -127,8 +132,9 @@ USE_L10N = True
 USE_TZ = True
 
 
-CORS_ORIGIN_ALLOW_ALL = True
-
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:4200",
+]
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 

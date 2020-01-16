@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from users.models import User, UserFeedback, AUTH_USER_MODEL
+
 from category.models import Category, SubCategory
 
 
@@ -18,13 +18,25 @@ class SubCategorySerializer(serializers.ModelSerializer):
     """
     Serializer for working with the sub category model
     """
+    totalsubscritionearn = serializers.CharField()
+    totalplayboxearn = serializers.CharField()
+    totalsupportearning = serializers.CharField()
+    category = CategorySerializer()
+
     class Meta:
         model = SubCategory
 
         fields = '__all__'
 
-    def to_representation(self, instance):
-        category = super(SubCategorySerializer, self).to_representation(
-            instance)
-        category['category'] = instance.category.name
-        return category
+    def update(self, instance, validated_data):
+        instance.category = validated_data.get('category')
+        instance.save()
+
+        return instance
+
+    # def to_representation(self, instance):
+    #     " get foreign key field"
+    #     category = super(SubCategorySerializer, self).to_representation(
+    #         instance)
+    #     category['category'] = instance.category.name
+    #     return category

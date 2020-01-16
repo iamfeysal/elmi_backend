@@ -1,6 +1,6 @@
-from django.urls import path, re_path, include
+from django.urls import path, re_path
 from rest_framework import routers
-from category.api.serializer import CategorySerializer, SubCategorySerializer
+from category.api.serializer import CategorySerializer
 from category.api.views import CategoryViewSet, SubCategoryViewSet
 
 router = routers.DefaultRouter()

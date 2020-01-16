@@ -8,6 +8,7 @@ urlpatterns = [
     path('authentication/', include('authentications.api.urls')),
     path('users/', include('users.api.urls')),
     path('categories/', include('category.api.urls')),
+    path('customers/', include('customers.api.urls')),
 ]
 
 if settings.DEBUG:

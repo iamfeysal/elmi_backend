@@ -10,6 +10,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     """
 
     queryset = Category.objects.all()
+    print('categories are:', queryset.count())
     # permission_classes = (IsAuthenticated,)
     serializer_class = CategorySerializer
 
