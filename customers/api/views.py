@@ -10,7 +10,6 @@ class B2bViewSet(viewsets.ModelViewSet):
     """
 
     queryset = B2bCustomer.objects.all()
-    print('categories are:', queryset.count())
     # permission_classes = (IsAuthenticated,)
     serializer_class = B2bSerializer
 
@@ -21,7 +20,6 @@ class FranchiseViewSet(viewsets.ModelViewSet):
     """
 
     queryset = FranchiseCustomer.objects.all()
-    print('categories are:', queryset.count())
     # permission_classes = (IsAuthenticated,)
     serializer_class = FranchiseSerializer
 
@@ -32,6 +30,5 @@ class EndViewSet(viewsets.ModelViewSet):
     """
 
     queryset = EndCustomer.objects.all()
-    print('categories are:', queryset.count())
     # permission_classes = (IsAuthenticated,)
     serializer_class = EndSerializer

@@ -24,6 +24,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,11 +49,20 @@ INTERNAL_IPS = [
     '127.0.0.1',
     # ...
 ]
-REST_FRAMEWORK = {
-    # "DATE_INPUT_FORMATS": ["%d-%m-%Y"],
-    'DATETIME_FORMAT': "%Y-%m-%d",
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+
+        # I add this config
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',)
 }
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -70,11 +80,13 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # 'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'DIRS': [os.path.join(BASE_DIR, '../templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
+                'django.template.context_processors.request',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -130,7 +142,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:4200",

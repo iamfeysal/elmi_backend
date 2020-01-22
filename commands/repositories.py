@@ -21,11 +21,14 @@ from users.models import User
 #         expiry_date=timezone.now() + timedelta(hours=1))
 
 
-def new_reset_request_for_user_with_email(email_address):
-    user = User.objects.get(email=email_address)
+def new_reset_request_for_user_with_email(email):
+    user = User.objects.get(email=email)
+    print("reset request emal user", user)
+
     # make the reset token as unique as possible, assuming user is not null
+
     generated_uuid = uuid.uuid4().hex
-    token = _generate_token(email_address, generated_uuid)
+    token = _generate_token(email, generated_uuid)
     return PasswordResetRequest.objects.create(
         uuid=generated_uuid,
         token=token,

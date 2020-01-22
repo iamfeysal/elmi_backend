@@ -1,7 +1,6 @@
 from django.db import models
 from users.models import AUTH_USER_MODEL
 
-
 from category.models import Category, SubCategory
 
 

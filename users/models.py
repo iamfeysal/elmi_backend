@@ -1,27 +1,22 @@
 import itertools
+
 from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.core import validators
 from django.core.mail import send_mail
 from django.db import models, transaction
 from django.db.models import ImageField
-from django.template.defaultfilters import slugify
-# from sorl.thumbnail import ImageField
-
-
-# Create your models here.
-from django.db.models.signals import post_save, pre_save
-from django.utils.translation import ugettext_lazy as _
+from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.template.defaultfilters import slugify
+from rest_framework.authtoken.models import Token
+from django.utils.translation import ugettext_lazy as _
 
 from project.settings.local import AUTH_USER_MODEL
 from users.users_managers import UserManager
 
-MEMBER_TYPE = (
-    ('end_customers', "End Customers"),
-    ('b2b_customers', "B2B Customers"),
-    ('franchise_shops', "Franchise Shops")
-)
+
+# from sorl.thumbnail import ImageField
 
 
 class User(AbstractBaseUser):
@@ -51,7 +46,6 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    # member_type = models.CharField(max_length=200, choices=MEMBER_TYPE)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -126,6 +120,16 @@ class User(AbstractBaseUser):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
         print(send_mail)
+
+    @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+    def create_auth_token(sender, instance=None, created=False, **kwargs):
+        """Create Auth Token
+
+        This code is triggered whenever a new user has been created
+        and saved to the database
+        """
+        if created:
+            Token.objects.create(user=instance)
 
 
 class UserFeedback(models.Model):

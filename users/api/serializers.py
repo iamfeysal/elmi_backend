@@ -2,6 +2,11 @@ from django.contrib.auth import update_session_auth_hash, get_user_model
 from rest_framework import serializers
 
 from users.models import User, UserFeedback
+from category.api.serializer import CategorySerializer, SubCategorySerializer
+
+
+# from customers.api.serializer import FranchiseSerializer, B2bSerializer,\
+#     EndSerializer
 
 
 class UserFeedbackSerializer(serializers.ModelSerializer):
@@ -18,14 +23,15 @@ class UserFeedbackSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     # userfeedback, = UserFeedbackSerializer()
     password = serializers.CharField(write_only=True, required=True)
+    user_category = CategorySerializer(many=True)
 
     # confirm_password = serializers.CharField(write_only=True, required=False)
 
     class Meta:
         model = User
         fields = (
-            "id", "email", "password", "date_joined",
-            "last_login", 'password',)
+            "id", "email", "password", "date_joined" , "last_login",
+            'user_category')
 
         # read_only_fields = ('date_joined', "password", 'last_login',
         # 'userprofile') extra_kwargs = {'password' : {'write_only' : True,

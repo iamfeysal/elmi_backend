@@ -95,7 +95,7 @@ class LoginView(GenericAPIView):
     def login(self):
         print('login api views function')
         self.user = self.serializer.validated_data['user']
-        # print(self.user)
+        print(self.user)
         self.token, created = self.token_model.objects.get_or_create(
             user=self.user
         )
@@ -106,7 +106,8 @@ class LoginView(GenericAPIView):
     def get_response(self):
         print('response function')
         resp_dict = {'key': self.response_serializer(
-            self.token).data['key'], 'is_staff': self.user.is_staff}
+            self.token).data['key'], 'is_staff': self.user.is_staff, 'user':
+                     self.user.id}
         print(resp_dict)
         return Response(resp_dict, status=status.HTTP_200_OK)
 
