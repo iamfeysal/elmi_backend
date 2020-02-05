@@ -21,25 +21,31 @@ class Category(models.Model):
 
 
 class SubCategory(models.Model):
-    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, models.CASCADE, blank=True,
+    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE,
+                             blank=True, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True,
                                  null=True, related_name='category_subcategory')
     name = models.CharField(max_length=255, blank=True, null=True,
                             help_text='subcategory name')
     in_progress = models.BooleanField(default=True, help_text='licensed '
-                                                              'active')
+                                                              'active',
+                                      blank=True, null=True)
     monitor_name = models.CharField(max_length=255, blank=True, null=True,
                                     help_text='monitor name')
     start_date = models.DateField()
     end_date = models.DateField()
-    subscription_type = models.CharField(max_length=255)
+    subscription_type = models.CharField(max_length=255, blank=True, null=True)
     condition = models.CharField(max_length=255)
-    price = models.DecimalField(max_digits=10, decimal_places=2,
-                                help_text='price per month')
-    playbox_price = models.DecimalField(max_digits=10, decimal_places=2)
-    support_contract = models.DecimalField(max_digits=10, decimal_places=2)
-    email = models.EmailField(verbose_name="email", max_length=60, unique=True,)
-    extra_income = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=10, blank=True, null=True,
+                                decimal_places=2,help_text='price per month')
+    playbox_price = models.DecimalField(max_digits=10, decimal_places=2,
+                                        blank=True, null=True)
+    support_contract = models.DecimalField(max_digits=10, decimal_places=2,
+                                           blank=True, null=True)
+    email = models.EmailField(verbose_name="email", max_length=60, null=True,
+                              blank=True)
+    extra_income = models.DecimalField(max_digits=10, decimal_places=2,
+                                       blank=True, null=True)
 
     def __str__(self):
         return str(self.monitor_name) + ": $" + str(self.price)

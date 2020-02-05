@@ -7,9 +7,13 @@ class SubCategorySerializer(serializers.ModelSerializer):
     """
     Serializer for working with the sub category model
     """
-    totalsubscritionearn = serializers.CharField()
-    totalplayboxearn = serializers.CharField()
-    totalsupportearning = serializers.CharField()
+    totalsubscritionearn = serializers.CharField(read_only=True, required=False)
+    totalplayboxearn = serializers.CharField(read_only=True, required=False)
+    totalsupportearning = serializers.CharField(read_only=True, required=False)
+    in_progress = serializers.CharField(read_only=True, required=False)
+
+    category = serializers.StringRelatedField()
+    user = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = SubCategory
@@ -17,12 +21,7 @@ class SubCategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        return Category.objects.create(**validated_data)
-
-    # def update(self, instance, validated_data):
-    #     instance.category = validated_data.get('category')
-    #     instance.save()
-    #     return instance
+        return SubCategory.objects.create(**validated_data)
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -37,6 +36,11 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ('id', 'name', 'subcategory')
+
+    def to_representation(self, instance):
+        rep = super(CategorySerializer, self).to_representation(instance)
+        rep['category'] = instance.name
+        return rep
 
 
 class UncategorisedsubSerializer(serializers.Serializer):

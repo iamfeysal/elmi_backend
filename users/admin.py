@@ -9,6 +9,10 @@ from category.models import Category, SubCategory
 from customers.models import FranchiseCustomer, B2bCustomer, EndCustomer
 from users.models import User, UserFeedback
 
+admin.site.site_header = " ELMI SYSTEM Admin"
+admin.site.site_title = " ELMI SYSTEM Admin Portal"
+admin.site.index_title = "Welcome to ELMI SYSTEM Portal"
+
 
 class MyUserAdmin(auth_admin.UserAdmin):
     form = UserChangeForm
@@ -79,9 +83,21 @@ class SubCategoryAdmin(admin.ModelAdmin):
         return queryset
 
 
+class FranchiseAdmin(admin.ModelAdmin):
+
+    list_display = ('user', "category", "franchise_count")
+
+    change_list_template = 'admin/franchise_change_list.html'
+
+    # date_hierarchy = 'published_date'
+
+    def franchise_count(self, request):
+        return FranchiseCustomer.objects.all().count()
+
+
 admin.site.register(User, MyUserAdmin, )
 admin.site.register(UserFeedback)
-admin.site.register(FranchiseCustomer)
+admin.site.register(FranchiseCustomer, FranchiseAdmin)
 admin.site.register(B2bCustomer)
 admin.site.register(EndCustomer)
 admin.site.register(Category, CategoryAdmin)

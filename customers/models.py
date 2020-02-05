@@ -18,6 +18,15 @@ class FranchiseCustomer(models.Model):
         return str(self.user)
 
 
+# base class
+
+class FranchiseSummary(FranchiseCustomer):
+    class Meta:
+        proxy = True
+        verbose_name = "franchise sales summary"
+        verbose_name_plural = "franchise summary"
+
+
 class B2bCustomer(models.Model):
     user = models.ForeignKey(AUTH_USER_MODEL, blank=False, null=False,
                              on_delete=models.CASCADE)

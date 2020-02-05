@@ -4,7 +4,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('grappelli/', include('grappelli.urls')),  # grappelli URL
+    path(r'^admin_tools/', include('admin_tools.urls')),
+    # path('grappelli/', include('grappelli.urls')),  # grappelli URL
     path('admin/', admin.site.urls),
     # path('', include('home.urls')),
     path('accounts/', include('django.contrib.auth.urls')),

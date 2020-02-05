@@ -107,7 +107,7 @@ class LoginView(GenericAPIView):
         print('response function')
         resp_dict = {'key': self.response_serializer(
             self.token).data['key'], 'is_staff': self.user.is_staff, 'user':
-                     self.user.id}
+                     self.user.id, 'email': self.user.email}
         print(resp_dict)
         return Response(resp_dict, status=status.HTTP_200_OK)
 
