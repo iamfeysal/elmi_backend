@@ -66,21 +66,21 @@ class CategoryAdmin(admin.ModelAdmin):
         return queryset
 
 
-class SubCategoryAdmin(admin.ModelAdmin):
-    list_display = ('category', 'name', 'monitor_name', 'start_date',
-                    'end_date', 'subscription_type', 'condition', 'price',
-                    'playbox_price', 'support_contract', 'email', 'extra_income'
-                    )
-
-    def user_info(self, obj):
-        return obj
-
-    # user_info.short_description = 'Category name'
-
-    def get_queryset(self, request):
-        queryset = super(SubCategoryAdmin, self).get_queryset(request)
-        queryset = queryset.order_by('name')
-        return queryset
+# class SubCategoryAdmin(admin.ModelAdmin):
+#     list_display = ('category', 'name', 'monitor_name', 'start_date',
+#                     'end_date', 'subscription_type', 'condition', 'price',
+#                     'playbox_price', 'support_contract', 'email', 'extra_income'
+#                     )
+#
+#     def user_info(self, obj):
+#         return obj
+#
+#     # user_info.short_description = 'Category name'
+#
+#     def get_queryset(self, request):
+#         queryset = super(SubCategoryAdmin, self).get_queryset(request)
+#         queryset = queryset.order_by('name')
+#         return queryset
 
 
 class FranchiseAdmin(admin.ModelAdmin):
@@ -102,4 +102,4 @@ admin.site.register(B2bCustomer)
 admin.site.register(EndCustomer)
 admin.site.register(Category, CategoryAdmin)
 admin.site.unregister(Group)
-admin.site.register(SubCategory, SubCategoryAdmin)
+admin.site.register(SubCategory)

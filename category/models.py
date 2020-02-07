@@ -2,7 +2,7 @@ from django.db import models, transaction
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from users.models import AUTH_USER_MODEL
+from users.models import AUTH_USER_MODEL, User
 from django.conf import settings
 
 
@@ -27,23 +27,21 @@ class SubCategory(models.Model):
                                  null=True, related_name='category_subcategory')
     name = models.CharField(max_length=255, blank=True, null=True,
                             help_text='subcategory name')
-    in_progress = models.BooleanField(default=True, help_text='licensed '
-                                                              'active',
-                                      blank=True, null=True)
+    in_progress = models.BooleanField(default=True, help_text='licensed active')
     monitor_name = models.CharField(max_length=255, blank=True, null=True,
                                     help_text='monitor name')
     start_date = models.DateField()
     end_date = models.DateField()
     subscription_type = models.CharField(max_length=255, blank=True, null=True)
-    condition = models.CharField(max_length=255)
+    condition = models.CharField(max_length=255, default='on_date')
     price = models.DecimalField(max_digits=10, blank=True, null=True,
-                                decimal_places=2,help_text='price per month')
+                                decimal_places=2, help_text='price per month')
     playbox_price = models.DecimalField(max_digits=10, decimal_places=2,
                                         blank=True, null=True)
     support_contract = models.DecimalField(max_digits=10, decimal_places=2,
                                            blank=True, null=True)
     email = models.EmailField(verbose_name="email", max_length=60, null=True,
-                              blank=True)
+                              blank=True, )
     extra_income = models.DecimalField(max_digits=10, decimal_places=2,
                                        blank=True, null=True)
 
@@ -111,6 +109,7 @@ class SubCategory(models.Model):
         print(diff)
         if diff <= 0:
             self.in_progress = False
+            self.condition = 'out_date'
             print(self.in_progress)
         super(SubCategory, self).save(force_insert=force_insert,
                                       force_update=force_update, using=using,
